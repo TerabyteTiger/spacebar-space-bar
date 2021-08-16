@@ -178,9 +178,9 @@ function delay(time) {
 
 function generateCustomer() {
   // Returns a Customer object (Letter, requesting, )
-  const percentile = Math.random();
+  let percentile = Math.random();
   // 👇🏻 Modify this to influence likelyhood of item appearing
-  const requesting =
+  let requesting =
     state.day >= 5
       ? ["a", "a", "a", "a", "a", "a", "b", "b", "b", "b", "c", "c"][
           Math.floor(Math.random() * 12)
