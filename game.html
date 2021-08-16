@@ -16,21 +16,24 @@
   <div id="customers">
 
   </div>
+  <div id="debt" class="hidden">
+    <p>Your remaining debt to pay is $<span id="debtAmount"></span></p>
+    <input type="number" name="paymentAmount" id="paymentAmount" min=0 value=0 step="1">
+    <button id="payDebt" onclick="payDebt()">Pay Debt</button>
+  </div>
   <div>
     <h2>Ingredient Stock</h2>
     <p>A: <span id="a-stock">0</span></p>
     <p>B: <span id="b-stock">0</span></p>
     <p>C: <span id="c-stock">0</span></p>
   </div>
-  <div>
+  <div id="purchasing">
     <h2>Purchase Ingredients</h2>
     <button id="buy-a" onclick="buy('a', 1)">Buy 1 a</button>
     <button id="buy-b" onclick="buy('b', 1)">Buy 1 b</button>
     <button id="buy-c" onclick="buy('c', 1)">Buy 1 c</button>
-  </div>
-  <div>
-    <h2>testing</h2>
-    <button id="test">Test button</button>
+    <p>Once you're stocked up you can start the next day here:</p>
+    <button onclick="newDay()">I'm ready for a new day</button>
   </div>
 
   <script src="./game.js"></script>

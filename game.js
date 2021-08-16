@@ -13,13 +13,13 @@ let state = {
     c: {
       label: "Stardust Sprinkle Ice Cream",
       inv: 0,
-      price: 59,
+      price: 9,
     },
   },
   // Store money in "cents", then display with decimals(?) to user because js decimals are tired
   money: 15,
-  debt: 0,
-  day: 1,
+  debt: 150,
+  day: 0,
   message: "",
   customersToday: 0,
   customersScheduled: 2,
@@ -29,25 +29,56 @@ function buy(item, amount) {
   let cost = amount * state.ingredients[item].price;
   if (cost <= state.money) {
     state.ingredients[item].inv = state.ingredients[item].inv + amount;
-    setMessage(`${amount} ${item} purchased`);
-    document.querySelector(
-      `#${item}-stock`
-    ).innerHTML = `${state.ingredients[item].inv}`;
+    setMessage(`${amount} ${state.ingredients[item].label} purchased`);
+    updateStock(item);
     state.money = state.money - cost;
     updateMoney();
   } else {
-    setMessage("Not enough money.");
+    setMessage(
+      `Not enough money to buy ${amount} ${state.ingredients[item].label}.`
+    );
   }
 }
 
 function use(item, amount, profits) {
-  if (state.ingredients[item] >= amount) {
-    state.ingredients[item] = state.ingredients[item] - amount;
+  if (state.ingredients[item].inv >= amount) {
+    state.ingredients[item].inv = state.ingredients[item].inv - amount;
     setMessage(`${amount} ${item} used`);
-    state.money = state.money + profits;
+    state.money = parseInt(state.money) + parseInt(profits);
+    updateStock(item);
+    updateMoney();
   } else {
     setMessage("Not enough in stock");
   }
+}
+
+function updateStock(item) {
+  document.querySelector(
+    `#${item}-stock`
+  ).innerHTML = `${state.ingredients[item].inv}`;
+}
+
+function serve(seatId) {
+  let seat = document.querySelector(`#${seatId}`);
+  let payment = seat.attributes.price.value;
+  let request = seat.attributes.requesting.value;
+  if (state.ingredients[request].inv > 0) {
+    use(request, 1, payment);
+    seat.remove();
+  } else {
+    setMessage(
+      `You don't have any ${state.ingredients[request].label} to sell`
+    );
+  }
+  checkEOD();
+}
+
+function dismiss(seatId) {
+  let seat = document.querySelector(`#${seatId}`);
+  let request = seat.attributes.requesting.value;
+  // ? Should price update after dismissing a customer, stimulating increased demand?
+  seat.remove();
+  checkEOD();
 }
 
 function setMessage(msg) {
@@ -59,14 +90,51 @@ function updateMoney() {
   document.querySelector("#money").innerHTML = state.money;
 }
 
-function payDebt(amount) {
-  if (amount > state.money) {
+function updateDebt() {
+  document.querySelector("#debtAmount").innerHTML = state.debt;
+}
+
+function payDebt() {
+  const amount = parseInt(document.querySelector("#paymentAmount").value);
+  console.log(amount);
+  // Stop users from soft locking
+  if (
+    state.ingredients.a.inv === 0 &&
+    state.ingredients.b.inv === 0 &&
+    state.ingredients.c.inv === 0 &&
+    amount < state.debt &&
+    amount === state.money
+  ) {
+    setMessage("You can't do that right now");
+    return;
+  }
+  if (amount <= state.money) {
     state.debt = state.debt - amount;
     state.money = state.money - amount;
+    updateMoney();
+    updateDebt();
+    if (state.debt <= 0) {
+      state.debt = 0;
+      // TODO: Add game finished logic here
+      alert("Game finished! You win!");
+    }
+  } else {
+    setMessage("You don't have enough money to do that");
+  }
+}
+
+function checkEOD() {
+  let seats = document.querySelectorAll(".seat");
+  if (seats.length === 0 && state.customersToday >= state.customersScheduled) {
+    setMessage("Day Ended!");
+    document.querySelector("#debt").className = "";
+    document.querySelector("#purchasing").className = "";
   }
 }
 
 function newDay() {
+  document.querySelector("#debt").className = "hidden";
+  document.querySelector("#purchasing").className = "hidden";
   state.day = state.day + 1;
   state.customersToday = 0;
   // How many customers to schedule:
@@ -74,15 +142,34 @@ function newDay() {
     10,
     Math.max(-5, Math.ceil((Math.random() - 0.35) * state.customersScheduled))
   );
-  state.customersScheduled = Math.min(
-    50,
-    Math.max(4, state.customersScheduled + custChange)
-  );
+  state.customersScheduled =
+    state.day === 1
+      ? 2
+      : Math.min(50, Math.max(4, state.customersScheduled + custChange));
   updateDay();
+  startCustomers();
 }
 
 function updateDay() {
   document.querySelector("#day").innerHTML = state.day;
+}
+
+async function startCustomers() {
+  let timerRandom =
+    Math.max(10, Math.min(5, Math.floor(Math.random() * 15))) * 1000;
+  await delay(timerRandom);
+  seatCustomer();
+  if (state.customersScheduled > state.customersToday) {
+    startCustomers();
+  }
+}
+
+function delay(time) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, time);
+  });
 }
 
 function generateCustomer() {
@@ -162,20 +249,63 @@ function generateCustomer() {
   }
 }
 
+function seatCustomer() {
+  const currentSeats = document.querySelectorAll(".seat");
+  // increment # of customers today
+  state.customersToday = parseInt(state.customersToday) + 1;
+  if (currentSeats.length >= 3) {
+    console.log("All seats filled");
+  } else {
+    const seat = state.customersToday;
+    let customer = generateCustomer();
+    document.querySelector("#customers").innerHTML =
+      document.querySelector("#customers").innerHTML +
+      `
+    <div class="seat" id="seat-${seat}" requesting="${
+        customer.requesting
+      }" price="${Math.max(
+        1,
+        Math.round(
+          customer.multiplier * state.ingredients[customer.requesting].price
+        )
+      )}">
+      ${customer.letter}
+      <br/>
+      Buying ${state.ingredients[customer.requesting].label} for $${Math.max(
+        1,
+        Math.round(
+          customer.multiplier * state.ingredients[customer.requesting].price
+        )
+      )}
+      <br/>
+      <button onclick="serve('seat-${seat}')">Serve</button>
+      <button onclick="dismiss('seat-${seat}')">Dismiss</button>
+    </div>`;
+  }
+}
+
+function updatePricing(item) {
+  const percentile = Math.min(Math.random() - 0.33, 0.15);
+  state.ingredients[item].price = Math.max(
+    state.ingredients[item].price +
+      Math.round(state.ingredients[item].price * percentile),
+    2
+  );
+  document.querySelector(
+    `#buy-${item}`
+  ).innerHTML = `Buy 1 ${state.ingredients[item].label} ($${state.ingredients[item].price})`;
+  return state.ingredients[item].price;
+}
+
 // Setup
 const buyAbtn = document.querySelector("#buy-a");
 const buyBbtn = document.querySelector("#buy-b");
 const buyCbtn = document.querySelector("#buy-c");
 
-buyAbtn.innerHTML = `Buy 1 ${state.ingredients.a.label}`;
-buyBbtn.innerHTML = `Buy 1 ${state.ingredients.b.label}`;
-buyCbtn.innerHTML = `Buy 1 ${state.ingredients.c.label}`;
-
-const testbtn = document.querySelector("#test");
-testbtn.addEventListener("click", () => {
-  console.log(generateCustomer());
-});
-
-testbtn.innerHTML = "Test";
+buyAbtn.innerHTML = `Buy 1 ${state.ingredients.a.label} ($${state.ingredients.a.price})`;
+buyBbtn.innerHTML = `Buy 1 ${state.ingredients.b.label} ($${state.ingredients.b.price})`;
+buyCbtn.innerHTML = `Buy 1 ${state.ingredients.c.label} ($${state.ingredients.c.price})`;
 
 updateMoney();
+updateDebt();
+// newDay();
