@@ -1,22 +1,22 @@
 let state = {
   ingredients: {
     a: {
-      label: "A",
+      label: "Space Juice",
       inv: 0,
       price: 1,
     },
     b: {
-      label: "B",
+      label: "Meteorite on the Rocks",
       inv: 0,
-      price: 2,
+      price: 4,
     },
     c: {
-      label: "C",
+      label: "Stardust Sprinkle Ice Cream",
       inv: 0,
       price: 59,
     },
   },
-  // Store money in "cents", then display with decimals to user because js decimals are tired
+  // Store money in "cents", then display with decimals(?) to user because js decimals are tired
   money: 15,
   debt: 0,
   day: 1,
@@ -85,27 +85,95 @@ function updateDay() {
   document.querySelector("#day").innerHTML = state.day;
 }
 
-function test(arg1) {
-  console.log(arg1);
+function generateCustomer() {
+  // Returns a Customer object (Letter, requesting, )
+  const percentile = Math.random();
+  // 👇🏻 Modify this to influence likelyhood of item appearing
+  const requesting =
+    state.day >= 5
+      ? ["a", "a", "a", "a", "a", "a", "b", "b", "b", "b", "c", "c"][
+          Math.floor(Math.random() * 12)
+        ]
+      : ["a", "a", "a", "a", "a", "a", "b", "b"][Math.floor(Math.random() * 8)];
+  if (percentile <= 0.01 && state.day >= 3) {
+    // Always has a coupon | starts appearing on day 3
+    let letters = ["c", "h", "e", "a", "p"];
+
+    const multiplier = 0.95;
+    return {
+      letter: letters[Math.floor(Math.random() * letters.length)],
+      multiplier: multiplier,
+      requesting: requesting,
+    };
+  } else if (percentile <= 0.31) {
+    // Customers
+    let letters = ["b", "a", "s", "i", "c"];
+    const multiplier = 1.05;
+    return {
+      letter: letters[Math.floor(Math.random() * letters.length)],
+      multiplier: multiplier,
+      requesting: requesting,
+    };
+  } else if (percentile <= 0.81) {
+    // Average Spenders
+    let letters = ["a", "v", "e", "r", "a", "g", "e"];
+    const multiplier = 1.25;
+    return {
+      letter: letters[Math.floor(Math.random() * letters.length)],
+      multiplier: multiplier,
+      requesting: requesting,
+    };
+  } else if (percentile <= 0.98) {
+    // High Rollers
+    let letters = [
+      "x",
+      "y",
+      "z",
+      "q",
+      "x",
+      "y",
+      "z",
+      "q",
+      "x",
+      "y",
+      "z",
+      "q",
+      "x",
+      "y",
+      "z",
+      "q",
+      "~",
+    ];
+    const multiplier = 1.75;
+    return {
+      letter: letters[Math.floor(Math.random() * letters.length)],
+      multiplier: multiplier,
+      requesting: requesting,
+    };
+  } else {
+    // Super high rollers
+    let letters = ["T", "B", "T", "I", "G", "R"];
+    const multiplier = 3;
+    return {
+      letter: letters[Math.floor(Math.random() * letters.length)],
+      multiplier: multiplier,
+      requesting: requesting,
+    };
+  }
 }
 
 // Setup
 const buyAbtn = document.querySelector("#buy-a");
 const buyBbtn = document.querySelector("#buy-b");
 const buyCbtn = document.querySelector("#buy-c");
-buyAbtn.addEventListener("click", () => {
-  buy("a", 1);
-});
-buyBbtn.addEventListener("click", () => {
-  buy("b", 1);
-});
-buyCbtn.addEventListener("click", () => {
-  buy("c", 1);
-});
+
+buyAbtn.innerHTML = `Buy 1 ${state.ingredients.a.label}`;
+buyBbtn.innerHTML = `Buy 1 ${state.ingredients.b.label}`;
+buyCbtn.innerHTML = `Buy 1 ${state.ingredients.c.label}`;
 
 const testbtn = document.querySelector("#test");
 testbtn.addEventListener("click", () => {
-  newDay();
+  console.log(generateCustomer());
 });
 
 testbtn.innerHTML = "Test";
