@@ -8,6 +8,14 @@ body > * {
   padding: 1rem;
 }
 
+* {
+  font-size: 1.1em;
+}
+
 .hidden {
   display: none;
+}
+
+button {
+  font-size: 1.4rem;
 }
