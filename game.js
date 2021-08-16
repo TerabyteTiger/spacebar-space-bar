@@ -147,6 +147,10 @@ function newDay() {
       ? 2
       : Math.min(50, Math.max(4, state.customersScheduled + custChange));
   updateDay();
+
+  updatePricing("a");
+  updatePricing("b");
+  updatePricing("c");
   startCustomers();
 }
 
