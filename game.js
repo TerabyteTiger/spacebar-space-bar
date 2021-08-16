@@ -116,7 +116,7 @@ function payDebt() {
     if (state.debt <= 0) {
       state.debt = 0;
       // TODO: Add game finished logic here
-      alert("Game finished! You win!");
+      alert(`Game finished! You won in ${state.day} days!`);
     }
   } else {
     setMessage("You don't have enough money to do that");
