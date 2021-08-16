@@ -43,7 +43,7 @@ function buy(item, amount) {
 function use(item, amount, profits) {
   if (state.ingredients[item].inv >= amount) {
     state.ingredients[item].inv = state.ingredients[item].inv - amount;
-    setMessage(`${amount} ${item} used`);
+    setMessage(`${amount} ${state.ingredients[item].label} used`);
     state.money = parseInt(state.money) + parseInt(profits);
     updateStock(item);
     updateMoney();
@@ -55,7 +55,7 @@ function use(item, amount, profits) {
 function updateStock(item) {
   document.querySelector(
     `#${item}-stock`
-  ).innerHTML = `${state.ingredients[item].inv}`;
+  ).innerHTML = `${state.ingredients[item].label}: ${state.ingredients[item].inv}`;
 }
 
 function serve(seatId) {
@@ -156,7 +156,7 @@ function updateDay() {
 
 async function startCustomers() {
   let timerRandom =
-    Math.max(10, Math.min(5, Math.floor(Math.random() * 15))) * 1000;
+    Math.max(5, Math.min(2, Math.floor(Math.random() * 6))) * 1000;
   await delay(timerRandom);
   seatCustomer();
   if (state.customersScheduled > state.customersToday) {
@@ -308,4 +308,7 @@ buyCbtn.innerHTML = `Buy 1 ${state.ingredients.c.label} ($${state.ingredients.c.
 
 updateMoney();
 updateDebt();
+updateStock("a");
+updateStock("b");
+updateStock("c");
 // newDay();
