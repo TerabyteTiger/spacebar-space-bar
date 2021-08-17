@@ -189,25 +189,40 @@ function generateCustomer() {
   if (percentile <= 0.01 && state.day >= 3) {
     // Always has a coupon | starts appearing on day 3
     let letters = ["c", "h", "e", "a", "p"];
-
-    const multiplier = 0.95;
+    const multiplier = 0.5;
     return {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
     };
-  } else if (percentile <= 0.31) {
+  } else if (percentile <= 0.25) {
     // Customers
-    let letters = ["b", "a", "s", "i", "c"];
+    let letters = ["b", "a", "s", "i", "c", "a", "f"];
     const multiplier = 1.05;
     return {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
     };
-  } else if (percentile <= 0.81) {
+  } else if (percentile <= 0.76) {
     // Average Spenders
-    let letters = ["a", "v", "e", "r", "a", "g", "e"];
+    let letters = [
+      "a",
+      "v",
+      "e",
+      "r",
+      "a",
+      "g",
+      "e",
+      "j",
+      "o",
+      "e",
+      "u",
+      "k",
+      "n",
+      "o",
+      "w",
+    ];
     const multiplier = 1.25;
     return {
       letter: letters[Math.floor(Math.random() * letters.length)],
@@ -235,7 +250,7 @@ function generateCustomer() {
       "q",
       "~",
     ];
-    const multiplier = 1.75;
+    const multiplier = 2;
     return {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
@@ -244,7 +259,7 @@ function generateCustomer() {
   } else {
     // Super high rollers
     let letters = ["T", "B", "T", "I", "G", "R"];
-    const multiplier = 3;
+    const multiplier = 5;
     return {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
