@@ -146,6 +146,9 @@ function newDay() {
     state.day === 1
       ? 2
       : Math.min(50, Math.max(4, state.customersScheduled + custChange));
+  setMessage(
+    `A new day has started! You will have ${state.customersScheduled} customers today!`
+  );
   updateDay();
 
   updatePricing("a");
@@ -163,8 +166,14 @@ async function startCustomers() {
     Math.max(5, Math.min(2, Math.floor(Math.random() * 6))) * 1000;
   await delay(timerRandom);
   seatCustomer();
-  if (state.customersScheduled > state.customersToday) {
+  let totalInv =
+    parseInt(state.ingredients.a.inv) +
+    parseInt(state.ingredients.b.inv) +
+    parseInt(state.ingredients.c.inv);
+  if (state.customersScheduled > state.customersToday && totalInv != 0) {
     startCustomers();
+  } else if (totalInv == 0) {
+    state.customersToday = state.customersScheduled;
   }
 }
 
@@ -304,7 +313,7 @@ function seatCustomer() {
 }
 
 function updatePricing(item) {
-  const percentile = Math.min(Math.random() - 0.33, 0.15);
+  const percentile = Math.min(Math.random() - 0.33, 0.35);
   state.ingredients[item].price = Math.max(
     state.ingredients[item].price +
       Math.round(state.ingredients[item].price * percentile),
