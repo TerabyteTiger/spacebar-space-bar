@@ -35,7 +35,8 @@ function buy(item, amount) {
     updateMoney();
   } else {
     setMessage(
-      `Not enough money to buy ${amount} ${state.ingredients[item].label}.`
+      `Not enough money to buy ${amount} ${state.ingredients[item].label}.`,
+      "red"
     );
   }
 }
@@ -48,7 +49,7 @@ function use(item, amount, profits) {
     updateStock(item);
     updateMoney();
   } else {
-    setMessage("Not enough in stock");
+    setMessage("Not enough in stock", "red");
   }
 }
 
@@ -67,7 +68,8 @@ function serve(seatId) {
     seat.remove();
   } else {
     setMessage(
-      `You don't have any ${state.ingredients[request].label} to sell`
+      `You don't have any ${state.ingredients[request].label} to sell`,
+      "red"
     );
   }
   checkEOD();
@@ -81,9 +83,10 @@ function dismiss(seatId) {
   checkEOD();
 }
 
-function setMessage(msg) {
+function setMessage(msg, color = "green") {
   state.message = msg;
-  document.querySelector("#message").innerHTML = msg;
+  document.querySelector("#message").innerHTML = `Latest Message: ${msg}`;
+  document.querySelector("#message").className = `message ${color}`;
 }
 
 function updateMoney() {
@@ -105,7 +108,7 @@ function payDebt() {
     amount < state.debt &&
     amount >= state.money - 1
   ) {
-    setMessage("You can't do that right now");
+    setMessage("You can't do that right now", "red");
     return;
   }
   if (amount <= state.money) {
@@ -119,7 +122,7 @@ function payDebt() {
       alert(`Game finished! You won in ${state.day} days!`);
     }
   } else {
-    setMessage("You don't have enough money to do that");
+    setMessage("You don't have enough money to do that", "red");
   }
 }
 
@@ -203,6 +206,7 @@ function generateCustomer() {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
+      phrase: getPhrase(),
     };
   } else if (percentile <= 0.25) {
     // Customers
@@ -212,6 +216,7 @@ function generateCustomer() {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
+      phrase: getPhrase(),
     };
   } else if (percentile <= 0.76) {
     // Average Spenders
@@ -237,6 +242,7 @@ function generateCustomer() {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
+      phrase: getPhrase(),
     };
   } else if (percentile <= 0.98) {
     // High Rollers
@@ -264,6 +270,7 @@ function generateCustomer() {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
+      phrase: getPhrase(),
     };
   } else {
     // Super high rollers
@@ -273,8 +280,39 @@ function generateCustomer() {
       letter: letters[Math.floor(Math.random() * letters.length)],
       multiplier: multiplier,
       requesting: requesting,
+      phrase: getPhrase(),
     };
   }
+}
+
+function getPhrase() {
+  // "I want (item) {phrase}"
+  const phrases = [
+    " and make it salty!",
+    " shaken, not stirred.",
+    " please!",
+    " with extra pizaazz!",
+    ".",
+    ".",
+    "!",
+    "!",
+    "... I think...",
+    " - and quick!",
+    ", but no rush.",
+    " - put it on my tab!",
+    " before I head home.",
+    " - it's delicious!",
+    " to feel alive",
+    ". After all, I'm not driving!",
+    " in a space cone, please.",
+    " with a side of moon rocks.",
+    " in a rainbow dish.",
+    " and a dog treat for Luna.",
+  ];
+
+  return phrases[
+    Math.min(phrases.length - 1, Math.floor(Math.random() * phrases.length))
+  ];
 }
 
 function seatCustomer() {
@@ -297,17 +335,28 @@ function seatCustomer() {
           customer.multiplier * state.ingredients[customer.requesting].price
         )
       )}">
+      <div class="flex">
+      <div>
+      <div class="key">
       ${customer.letter}
-      <br/>
-      Buying ${state.ingredients[customer.requesting].label} for $${Math.max(
+      </div>
+      </div>
+      <div class="quote">
+          <p>"I want ${
+            state.ingredients[customer.requesting].label
+          } for $${Math.max(
         1,
         Math.round(
           customer.multiplier * state.ingredients[customer.requesting].price
         )
-      )}
+      )}${customer.phrase}"</p>
+      </div>
+      </div>
       <br/>
-      <button onclick="serve('seat-${seat}')">Serve</button>
-      <button onclick="dismiss('seat-${seat}')">Dismiss</button>
+      <div class="custButtons">
+      <button onclick="serve('seat-${seat}')" class="servebtn btn">Serve</button>
+      <button onclick="dismiss('seat-${seat}')" class="dismissbtn btn">Dismiss</button>
+      </div>
     </div>`;
   }
 }
