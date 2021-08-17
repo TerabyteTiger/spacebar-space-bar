@@ -163,7 +163,7 @@ function updateDay() {
 
 async function startCustomers() {
   let timerRandom =
-    Math.max(5, Math.min(2, Math.floor(Math.random() * 6))) * 1000;
+    Math.max(4, Math.min(1.5, Math.floor(Math.random() * 5))) * 1000;
   await delay(timerRandom);
   seatCustomer();
   let totalInv =
