@@ -103,7 +103,7 @@ function payDebt() {
     state.ingredients.b.inv === 0 &&
     state.ingredients.c.inv === 0 &&
     amount < state.debt &&
-    amount === state.money
+    amount >= state.money - 1
   ) {
     setMessage("You can't do that right now");
     return;
