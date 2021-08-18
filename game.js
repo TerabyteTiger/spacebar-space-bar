@@ -11,7 +11,7 @@ let state = {
       price: 4,
     },
     c: {
-      label: "Stardust Sprinkle Ice Cream",
+      label: "Stardust Ice Cream",
       inv: 0,
       price: 9,
     },
@@ -56,7 +56,7 @@ function use(item, amount, profits) {
 function updateStock(item) {
   document.querySelector(
     `#${item}-stock`
-  ).innerHTML = `${state.ingredients[item].label}: ${state.ingredients[item].inv}`;
+  ).innerHTML = `<span class="${item}">${state.ingredients[item].label}</span>: ${state.ingredients[item].inv}`;
 }
 
 function serve(seatId) {
@@ -116,6 +116,7 @@ function payDebt() {
     state.money = state.money - amount;
     updateMoney();
     updateDebt();
+    closeDialog();
     if (state.debt <= 0) {
       state.debt = 0;
       // TODO: Add game finished logic here
@@ -126,11 +127,21 @@ function payDebt() {
   }
 }
 
+function closeDialog() {
+  document.querySelector(".dialog-background").className =
+    "dialog-background hidden";
+  document.querySelector("#debt").className = "dialog-open center hidden";
+}
+
+function openDialog() {
+  document.querySelector(".dialog-background").className = "dialog-background";
+  document.querySelector("#debt").className = "dialog-open center";
+}
+
 function checkEOD() {
   let seats = document.querySelectorAll(".seat");
   if (seats.length === 0 && state.customersToday >= state.customersScheduled) {
     setMessage("Day Ended!");
-    document.querySelector("#debt").className = "";
     document.querySelector("#purchasing").className = "";
   }
 }
@@ -341,10 +352,10 @@ function seatCustomer() {
       ${customer.letter}
       </div>
       </div>
-      <div class="quote">
-          <p>"I want ${
-            state.ingredients[customer.requesting].label
-          } for $${Math.max(
+      <div class="quote grow">
+          <p>"I want <span class="${customer.requesting}">${
+        state.ingredients[customer.requesting].label
+      }</span> for $${Math.max(
         1,
         Math.round(
           customer.multiplier * state.ingredients[customer.requesting].price
@@ -352,8 +363,7 @@ function seatCustomer() {
       )}${customer.phrase}"</p>
       </div>
       </div>
-      <br/>
-      <div class="custButtons">
+      <div class="btnGroupSm">
       <button onclick="serve('seat-${seat}')" class="servebtn btn">Serve</button>
       <button onclick="dismiss('seat-${seat}')" class="dismissbtn btn">Dismiss</button>
       </div>
@@ -379,9 +389,9 @@ const buyAbtn = document.querySelector("#buy-a");
 const buyBbtn = document.querySelector("#buy-b");
 const buyCbtn = document.querySelector("#buy-c");
 
-buyAbtn.innerHTML = `Buy 1 ${state.ingredients.a.label} ($${state.ingredients.a.price})`;
-buyBbtn.innerHTML = `Buy 1 ${state.ingredients.b.label} ($${state.ingredients.b.price})`;
-buyCbtn.innerHTML = `Buy 1 ${state.ingredients.c.label} ($${state.ingredients.c.price})`;
+buyAbtn.innerHTML = `Buy 1 <span class="a">${state.ingredients.a.label}</span> ($${state.ingredients.a.price})`;
+buyBbtn.innerHTML = `Buy 1 <span class="b">${state.ingredients.b.label}</span> ($${state.ingredients.b.price})`;
+buyCbtn.innerHTML = `Buy 1 <span class="c">${state.ingredients.c.label}</span> ($${state.ingredients.c.price})`;
 
 updateMoney();
 updateDebt();
