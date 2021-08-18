@@ -19,6 +19,7 @@ let state = {
   // Store money in "cents", then display with decimals(?) to user because js decimals are tired
   money: 15,
   debt: 150,
+  interest: 0,
   day: 0,
   message: "",
   customersToday: 0,
@@ -99,7 +100,6 @@ function updateDebt() {
 
 function payDebt() {
   const amount = parseInt(document.querySelector("#paymentAmount").value);
-  console.log(amount);
   // Stop users from soft locking
   if (
     state.ingredients.a.inv === 0 &&
@@ -147,9 +147,11 @@ function checkEOD() {
 }
 
 function newDay() {
-  document.querySelector("#debt").className = "hidden";
+  // document.querySelector("#debt").className = "hidden";
   document.querySelector("#purchasing").className = "hidden";
   state.day = state.day + 1;
+  state.debt = Math.floor(state.interest * parseInt(state.debt));
+  updateDebt();
   state.customersToday = 0;
   // How many customers to schedule:
   const custChange = Math.min(
@@ -331,7 +333,7 @@ function seatCustomer() {
   // increment # of customers today
   state.customersToday = parseInt(state.customersToday) + 1;
   if (currentSeats.length >= 3) {
-    console.log("All seats filled");
+    setMessage("All seats filled! Customer left!", "red");
   } else {
     const seat = state.customersToday;
     let customer = generateCustomer();
@@ -392,6 +394,19 @@ const buyCbtn = document.querySelector("#buy-c");
 buyAbtn.innerHTML = `Buy 1 <span class="a">${state.ingredients.a.label}</span> ($${state.ingredients.a.price})`;
 buyBbtn.innerHTML = `Buy 1 <span class="b">${state.ingredients.b.label}</span> ($${state.ingredients.b.price})`;
 buyCbtn.innerHTML = `Buy 1 <span class="c">${state.ingredients.c.label}</span> ($${state.ingredients.c.price})`;
+
+function mounted() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  if (urlParams.has("i")) {
+    state.interest = parseInt(urlParams.get("i")) * 0.01 + 1;
+  }
+  if (urlParams.has("d")) {
+    state.debt = parseInt(urlParams.get("d"));
+  }
+}
+
+mounted();
 
 updateMoney();
 updateDebt();

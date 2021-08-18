@@ -220,16 +220,19 @@ p {
 
 .a {
   color: var(--a-color);
+  font-style: italic;
   font-size: inherit;
 }
 
 .b {
   color: var(--b-color);
+  font-style: italic;
   font-size: inherit;
 }
 
 .c {
   color: var(--c-color);
+  font-style: italic;
   font-size: inherit;
 }
 
