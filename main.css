@@ -25,6 +25,9 @@ body {
   --close-border: hsl(0, 40%, 40%);
   --primary: hsl(240, 30%, 45%);
   --error: hsl(0, 40%, 45%);
+  --twitter-color: hsl(203, 89%, 38%);
+  --twitter-border: hsl(203, 89%, 33%);
+  --twitter-hover: hsl(203, 89%, 28%);
 }
 
 * {
@@ -133,6 +136,16 @@ button:active {
 .custButtons * {
   flex-grow: 1;
   margin: 0 5px;
+}
+
+.twitterbtn {
+  background: var(--twitter-color);
+  color: white;
+  border-color: var(--twitter-border);
+}
+
+.twitterbtn:hover {
+  background: var(--twitter-hover);
 }
 
 .paydebtbtn {

@@ -20,6 +20,7 @@ let state = {
   money: 15,
   debt: 150,
   interest: 0,
+  difficulty: "short",
   day: 0,
   message: "",
   customersToday: 0,
@@ -119,8 +120,14 @@ function payDebt() {
     closeDialog();
     if (state.debt <= 0) {
       state.debt = 0;
-      // TODO: Add game finished logic here
-      alert(`Game finished! You won in ${state.day} days!`);
+      // Open dialog and set focus to share button
+      document.querySelector(".dialog-background").className =
+        "dialog-background";
+      document.querySelector("#victory").className = "dialog-open center";
+      document.querySelector(".twitterbtn").focus();
+      document.querySelector(
+        "#victoryMessage"
+      ).innerHTML = `You have paid off your debt to the Function keys in ${state.day} days!`;
     }
   } else {
     setMessage("You don't have enough money to do that", "red");
@@ -131,6 +138,7 @@ function closeDialog() {
   document.querySelector(".dialog-background").className =
     "dialog-background hidden";
   document.querySelector("#debt").className = "dialog-open center hidden";
+  document.querySelector("#victory").className = "dialog-open center hidden";
   document.querySelector("#buy-a").focus();
 }
 
@@ -388,6 +396,18 @@ function updatePricing(item) {
   return state.ingredients[item].price;
 }
 
+// share to twitter
+function shareVictory() {
+  window.open(
+    `https://twitter.com/intent/tweet?text=I%20just%20beat%20Spacebar%27s%20Space%20bar%20on%20${state.difficulty}%20in%20${state.days}%20days%21%20Can%20you%20finish%20faster%3F%20%0A%0ACreated%20by%20%40terabytetiger%0A%0Ahttps%3A%2F%2Fspacebar.terabytetiger.com%2F`,
+    "newwindow",
+    "width=500, height=300, top=" +
+      (window.innerHeight - height) / 2 +
+      ", left=" +
+      (window.innerWidth - width) / 2
+  );
+}
+
 // Setup
 const buyAbtn = document.querySelector("#buy-a");
 const buyBbtn = document.querySelector("#buy-b");
@@ -405,6 +425,12 @@ function mounted() {
   }
   if (urlParams.has("d")) {
     state.debt = parseInt(urlParams.get("d"));
+  }
+  if (urlParams.has("m")) {
+    state.money = parseInt(urlParams.get("m"));
+  }
+  if (urlParams.has("f")) {
+    state.difficulty = urlParams.get("f");
   }
 }
 

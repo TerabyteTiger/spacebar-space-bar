@@ -42,6 +42,17 @@
         </div>
 
       </div>
+      <div id="victory" class="hidden dialog-open center">
+        <h2>CONGRATS!</h2>
+        <p id="victoryMessage"></p>
+        <div class="btnGroup">
+          <div></div>
+          <button class="twitterbtn" onclick="shareVictory()">Share your victory</button>
+          <div></div>
+          <button id="closeDialog" class="closebtn" onclick="closeDialog()">Continue Playing</button>
+          <div></div>
+        </div>
+      </div>
       <div id="purchasing">
         <h2>Purchase Ingredients</h2>
         <div class="btnGroup">
@@ -59,6 +70,7 @@
 
     </div>
     <p class="message" id="message">Latest Message: New game started!</p>
+
   </div>
   <script src="./game.js"></script>
 </body>
