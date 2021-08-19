@@ -131,11 +131,13 @@ function closeDialog() {
   document.querySelector(".dialog-background").className =
     "dialog-background hidden";
   document.querySelector("#debt").className = "dialog-open center hidden";
+  document.querySelector("#buy-a").focus();
 }
 
 function openDialog() {
   document.querySelector(".dialog-background").className = "dialog-background";
   document.querySelector("#debt").className = "dialog-open center";
+  document.querySelector("#paymentAmount").focus();
 }
 
 function checkEOD() {
