@@ -9,9 +9,22 @@ body {
   --content-padding: 1rem;
   --button-padding: 0.5rem;
   --small-padding: 0.25rem;
-  --a-color: hsl(9.1, 50%, 43.9%);
+  --a-color: hsl(300, 30%, 43%);
   --b-color: hsl(207.3, 44%, 39%);
   --c-color: hsl(159.6, 50.7%, 30.2%);
+  --a-border: hsl(300, 30%, 39%);
+  --b-border: hsl(207.3, 44%, 35%);
+  --c-border: hsl(159.6, 50.7%, 26%);
+  --debt-color: hsl(120, 35%, 40%);
+  --debt-hover: hsl(120, 35%, 30%);
+  --debt-border: hsl(120, 35%, 35%);
+  --day-hover: hsl(240, 30%, 35%);
+  --day-border: hsl(240, 30%, 40%);
+  --close-color: hsl(0, 40%, 45%);
+  --close-hover: hsl(0, 40%, 35%);
+  --close-border: hsl(0, 40%, 40%);
+  --primary: hsl(240, 30%, 45%);
+  --error: hsl(0, 40%, 45%);
 }
 
 * {
@@ -29,6 +42,28 @@ button {
   border-radius: 5px;
   background: white;
   margin-bottom: var(--padding);
+
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 5px;
+  border-left-width: 5px;
+}
+
+button:active {
+  border-width: 3px;
+  /* border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px; */
+}
+
+#buy-a {
+  border-color: var(--a-border);
+}
+#buy-b {
+  border-color: var(--b-border);
+}
+#buy-c {
+  border-color: var(--c-border);
 }
 
 #buy-a:hover,
@@ -50,13 +85,21 @@ button {
 }
 
 #debtDialog:hover {
-  background-color: hsl(100, 55%, 35%);
+  background-color: var(--debt-hover);
   color: white;
 }
 
+#debtDialog {
+  border-color: var(--debt-border);
+}
+
 #newDay:hover {
-  background-color: hsl(250.4, 45%, 35.3%);
+  background-color: var(--day-hover);
   color: white;
+}
+
+#newDay {
+  border-color: var(--day-border);
 }
 
 .center {
@@ -93,42 +136,52 @@ button {
 }
 
 .paydebtbtn {
-  background: hsl(120, 70%, 20%);
+  background: var(--debt-color);
   color: white;
 }
 
 .paydebtbtn:hover {
-  background: hsl(120, 70%, 30%);
+  background: var(--debt-hover);
+}
+
+.paydebtbtn,
+.servebtn {
+  border-color: var(--debt-border);
 }
 
 .servebtn {
-  background: hsl(120, 70%, 20%);
+  background: var(--debt-color);
   color: white;
   max-width: 250px;
 }
 
 .servebtn:hover {
-  background: hsl(120, 70%, 30%);
+  background: var(--debt-hover);
 }
 
 .closebtn {
-  background: hsl(0, 70%, 40%);
+  background: var(--close-color);
   color: white;
 }
 
 .closebtn:hover {
-  background: hsl(0, 70%, 50%);
+  background: var(--close-hover);
   color: white;
 }
 
+.closebtn,
 .dismissbtn {
-  background: hsl(0, 70%, 40%);
+  border-color: var(--close-border);
+}
+
+.dismissbtn {
+  background: var(--close-color);
   color: white;
   max-width: 250px;
 }
 
 .dismissbtn:hover {
-  background: hsl(0, 70%, 50%);
+  background: var(--close-hover);
   color: white;
 }
 
@@ -143,7 +196,7 @@ p.quote {
 .dayHeading {
   text-align: center;
   margin: 0;
-  background: hsl(240, 30%, 45%);
+  background: var(--primary);
   color: white;
 }
 
@@ -165,7 +218,7 @@ p.quote {
 }
 
 .message {
-  background: hsl(240, 30%, 45%);
+  background: var(--primary);
   color: white;
   position: sticky;
   bottom: 0;
@@ -174,7 +227,7 @@ p.quote {
 }
 
 .message.red {
-  background: hsl(0, 40%, 45%);
+  background: var(--error);
   color: white;
 }
 
