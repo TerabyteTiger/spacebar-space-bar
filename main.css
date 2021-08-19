@@ -2,6 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 :root {
@@ -36,6 +37,75 @@ body {
 
 *:focus {
   outline: 3px solid hsl(183, 42%, 70%);
+}
+
+#easy {
+  color: var(--c-color);
+  border-color: var(--c-border);
+}
+
+#easy:hover {
+  color: white;
+  background-color: var(--c-color);
+}
+
+#normal {
+  color: var(--b-color);
+  border-color: var(--b-border);
+}
+
+#normal:hover {
+  color: white;
+  background-color: var(--b-color);
+}
+
+#hardcore {
+  color: var(--close-color);
+  border-color: var(--close-border);
+}
+
+#hardcore:hover {
+  color: white;
+  background-color: var(--close-color);
+}
+
+#notes {
+  color: var(--a-color);
+  border-color: var(--a-border);
+}
+
+#notes:hover {
+  color: white;
+  background-color: var(--a-color);
+}
+
+#save {
+  color: var(--primary);
+  border-color: var(--day-border);
+}
+
+#save:hover {
+  color: white;
+  background-color: var(--primary);
+}
+
+#changeSettings {
+  color: var(--twitter-color);
+  border-color: var(--twitter-border);
+}
+
+#changeSettings:hover {
+  background-color: var(--twitter-hover);
+}
+
+#customStart {
+  color: var(--primary);
+  border-color: var(--day-border);
+}
+
+#customStart:hover {
+  color: white;
+  background-color: var(--primary);
 }
 
 .hidden {
@@ -284,6 +354,20 @@ hr {
   align-items: baseline;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+nav input {
+  width: 10ch;
+  margin-bottom: 0.5rem;
+}
+
+#interestRate {
+  text-align: right;
+}
+
 p {
   margin: 0;
 }
@@ -365,6 +449,56 @@ p {
   margin: 0;
 }
 
+/* Homepage */
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+nav a {
+  font-size: 1rem;
+  padding: var(--button-padding);
+  border-radius: 5px;
+  background: white;
+  margin-bottom: var(--padding);
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 5px;
+  border-left-width: 5px;
+  border-color: blue;
+  border-style: solid;
+  display: inline-block;
+  width: auto;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+#custom a.hidden {
+  display: none;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.container {
+  margin: 1rem auto;
+  max-width: 500px;
+}
+
+ul,
+li {
+  margin-left: var(--padding);
+}
+
+.container h2 {
+  padding-top: var(--padding);
+}
+
 /* Large Screens 👇🏻 */
 @media only screen and (min-width: 600px) {
   /* .content {
@@ -395,5 +529,13 @@ p {
     min-width: 250px;
     max-width: 500px;
     width: auto;
+  }
+
+  .container {
+    max-width: 1000px;
+  }
+
+  #save {
+    width: 100%;
   }
 }

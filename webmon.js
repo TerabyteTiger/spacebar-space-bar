@@ -5,7 +5,7 @@ document.monetization.addEventListener("monetizationstart", function () {
 });
 
 function save() {
-  document.querySelector("#custom div").className = "hidden";
+  document.querySelector("#custom > div").className = "hidden";
   let customlink = document.querySelector("#customStart");
   let i = document.querySelector("#interestRate").value;
   let d = document.querySelector("#startingDebt").value;
@@ -13,4 +13,11 @@ function save() {
   const f = "custom";
   customlink.className = "";
   customlink.href = `./game.html?i=${i}&d=${d}&m=${m}&f=${f}`;
+  document.querySelector("#changeSettings").className = "";
+}
+
+function changeSettings() {
+  document.querySelector("#custom > div").className = "flex-col";
+  document.querySelector("#customStart").className = "hidden";
+  document.querySelector("#changeSettings").className = "hidden";
 }
