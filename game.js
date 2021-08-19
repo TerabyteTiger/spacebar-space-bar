@@ -399,12 +399,12 @@ function updatePricing(item) {
 // share to twitter
 function shareVictory() {
   window.open(
-    `https://twitter.com/intent/tweet?text=I%20just%20beat%20Spacebar%27s%20Space%20bar%20on%20${state.difficulty}%20in%20${state.days}%20days%21%20Can%20you%20finish%20faster%3F%20%0A%0ACreated%20by%20%40terabytetiger%0A%0Ahttps%3A%2F%2Fspacebar.terabytetiger.com%2F`,
+    `https://twitter.com/intent/tweet?text=I%20just%20beat%20Spacebar%27s%20Space%20bar%20on%20${state.difficulty}%20in%20${state.day}%20days%21%20Can%20you%20finish%20faster%3F%20%0A%0ACreated%20by%20%40terabytetiger%0A%0Ahttps%3A%2F%2Fspacebar.terabytetiger.com%2F`,
     "newwindow",
     "width=500, height=300, top=" +
-      (window.innerHeight - height) / 2 +
+      (window.innerHeight - 300) / 2 +
       ", left=" +
-      (window.innerWidth - width) / 2
+      (window.innerWidth - 500) / 2
   );
 }
 

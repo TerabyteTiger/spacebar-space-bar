@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="main.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="monetization" content="$ilp.uphold.com/FYGWHFNNRHg8">
 </head>
 
 <body>
-  <h1>Welcome to Spacebar Space bar! </h1>
+  <h1>Welcome to Spacebar's Space bar! </h1>
   <p>
     Welcome to space! You're Spacebar, a spacebar with a knack for getting into trouble. Most recently you've found
     yourself indebted to an unruly gang of Function keys in an effort to pursue your dreams of opening a Space bar!
@@ -26,7 +27,25 @@
     <a href="./game.html?i=2&d=1000&f=hardcore">Hardcore game ($1000 debt, 2% daily interest)</a>
     <br>
     <a href="./notes.html">Patch notes</a>
+    <br>
   </nav>
+  <div id="custom" class="hiddenx">
+    <div>
+      <h2>Custom Game:</h2>
+      <label for="startingMoney">Starting Money: $</label>
+      <input id="startingMoney" name="startingMoney" type="number" min="0" value="15">
+      <br>
+      <label for="startingDebt">Starting Debt: $</label>
+      <input id="startingDebt" name="startingDebt" type="number" min="1" value="100">
+      <br>
+      <label for="interestRate">Interest Rate: </label>
+      <input id="interestRate" name="interestRate" type="number" max="100" min="0" value="0">%
+      <br>
+      <button onclick="save()">Save settings</button>
+    </div>
+    <a href="" id="customStart" class="hidden">Play Custom</a>
+  </div>
+  <script src="./webmon.js"></script>
 </body>
 
 </html>
