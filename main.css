@@ -488,6 +488,8 @@ nav {
 .container {
   margin: 1rem auto;
   max-width: 500px;
+  padding: var(--padding);
+  margin: var(--padding);
 }
 
 ul,
