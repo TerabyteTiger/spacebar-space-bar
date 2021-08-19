@@ -440,7 +440,7 @@ p {
 
 .btnGroupSm {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: min-content min-content;
   column-gap: var(--padding);
   margin-top: var(--padding);
 }
@@ -516,9 +516,6 @@ li {
     --content-padding: 2rem;
   }
 
-  #debt .btnGroup {
-    grid-template-columns: var(--padding) 1fr var(--padding) 1fr var(--padding);
-  }
 
   .btnGroup {
     display: grid;
