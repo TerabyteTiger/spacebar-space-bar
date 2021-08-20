@@ -7,8 +7,8 @@ html-minifier --collapse-whitespace notes.html -o compressed\notes.html
 csso main.css --output compressed\main.css
 
 # js file compression
-uglifyjs game.js --compress --mangle -o compressed\game.js
-uglifyjs webmon.js --compress --mangle -o compressed\webmon.js
+terser game.js --compress --mangle --keep-fnames -o compressed\game.js
+terser webmon.js --compress --mangle -o compressed\webmon.js
 
 # Copy Favicon
 Copy-Item ./favicon.ico ./compressed/favicon.ico
