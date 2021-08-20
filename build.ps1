@@ -14,3 +14,8 @@ terser webmon.js --compress --mangle -o dist\webmon.js
 Copy-Item ./favicon.ico ./dist/favicon.ico
 
 Write-Output "Compression complete"
+
+# Create Zipped file
+Compress-Archive ./dist ./dist.zip -Force
+
+Write-Output "Compressed Files Zipped to dist.zip"
