@@ -11,6 +11,6 @@ uglifyjs game.js --compress --mangle -o compressed\game.js
 uglifyjs webmon.js --compress --mangle -o compressed\webmon.js
 
 # Copy Favicon
-Copy-Item ./favicon.webp ./compressed/favicon.webp
+Copy-Item ./favicon.ico ./compressed/favicon.ico
 
 Write-Output "Compression complete"
