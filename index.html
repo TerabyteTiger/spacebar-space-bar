@@ -46,20 +46,19 @@
       <div id="custom" class="hidden">
         <div class="flex-col">
           <h2>Custom Game:</h2>
-          <div class="">
-
+          <div>
             <label for="startingMoney">Starting Money: $</label>
-            <input id="startingMoney" name="startingMoney" type="number" min="0" value="15" onclick="this.select()">
+            <input id="startingMoney" name="startingMoney" type="number" min="0" value="15" onclick="this.select()" step="1">
           </div>
-          <div class="">
+          <div>
 
             <label for="startingDebt">Starting Debt: $</label>
-            <input id="startingDebt" name="startingDebt" type="number" min="1" value="100" onclick="this.select()">
+            <input id="startingDebt" name="startingDebt" type="number" min="1" value="100" onclick="this.select()" step="1">
           </div>
-          <div class="">
+          <div>
             <label for="interestRate">Interest Rate: </label>
             <input id="interestRate" name="interestRate" type="number" max="100" min="0" value="0"
-              onclick="this.select()">%
+              onclick="this.select()" step="1">%
           </div>
 
           <button id=" save" onclick="save()">Save settings</button>

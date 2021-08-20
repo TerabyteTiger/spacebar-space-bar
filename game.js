@@ -1,3 +1,4 @@
+// a, b, and c were easy to use variables because I didn't decide what to call items until I had the interface mostly styled - namely so that none of the items were too many characters and caused overflow in the UI.
 let state = {
   ingredients: {
     a: {
@@ -16,7 +17,7 @@ let state = {
       price: 9,
     },
   },
-  // Store money in "cents", then display with decimals(?) to user because js decimals are tired
+  // Store money (and prices) in whole numbers because js decimals are tired
   money: 15,
   debt: 150,
   interest: 0,
@@ -340,7 +341,7 @@ function getPhrase() {
 
 function seatCustomer() {
   const currentSeats = document.querySelectorAll(".seat");
-  // increment # of customers today
+  // increment # of customers today 
   state.customersToday = parseInt(state.customersToday) + 1;
   if (currentSeats.length >= 3) {
     setMessage("All seats filled! Customer left!", "red");
@@ -384,6 +385,7 @@ function seatCustomer() {
 }
 
 function updatePricing(item) {
+  // Randomly update the pricing of the passed in item - each day the items will randomly change in price from -33% - +35% rounded to an integer.
   const percentile = Math.min(Math.random() - 0.33, 0.35);
   state.ingredients[item].price = Math.max(
     state.ingredients[item].price +
@@ -396,8 +398,8 @@ function updatePricing(item) {
   return state.ingredients[item].price;
 }
 
-// share to twitter
 function shareVictory() {
+  // share to twitter using the twitter intent to tweet url config
   window.open(
     `https://twitter.com/intent/tweet?text=I%20just%20beat%20Spacebar%27s%20Space%20bar%20on%20${state.difficulty}%20in%20${state.day}%20days%21%20Can%20you%20finish%20faster%3F%20%0A%0ACreated%20by%20%40terabytetiger%0A%0Ahttps%3A%2F%2Fspacebar.terabytetiger.com%2F`,
     "newwindow",
@@ -408,16 +410,18 @@ function shareVictory() {
   );
 }
 
-// Setup
-const buyAbtn = document.querySelector("#buy-a");
-const buyBbtn = document.querySelector("#buy-b");
-const buyCbtn = document.querySelector("#buy-c");
-
-buyAbtn.innerHTML = `Buy 1 <span class="a">${state.ingredients.a.label}</span> ($${state.ingredients.a.price})`;
-buyBbtn.innerHTML = `Buy 1 <span class="b">${state.ingredients.b.label}</span> ($${state.ingredients.b.price})`;
-buyCbtn.innerHTML = `Buy 1 <span class="c">${state.ingredients.c.label}</span> ($${state.ingredients.c.price})`;
 
 function mounted() {
+  // Setup buttons - this will easily allow for adjustments to the names of ingredients
+  const buyAbtn = document.querySelector("#buy-a");
+  const buyBbtn = document.querySelector("#buy-b");
+  const buyCbtn = document.querySelector("#buy-c");
+  
+  buyAbtn.innerHTML = `Buy 1 <span class="a">${state.ingredients.a.label}</span> ($${state.ingredients.a.price})`;
+  buyBbtn.innerHTML = `Buy 1 <span class="b">${state.ingredients.b.label}</span> ($${state.ingredients.b.price})`;
+  buyCbtn.innerHTML = `Buy 1 <span class="c">${state.ingredients.c.label}</span> ($${state.ingredients.c.price})`;
+
+  // Gather gameplay settings from URL Params
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   if (urlParams.has("i")) {
