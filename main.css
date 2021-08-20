@@ -307,6 +307,7 @@ p.quote {
 .message {
   background: var(--primary);
   color: white;
+  position: -webkit-sticky;
   position: sticky;
   bottom: 0;
   margin-bottom: 0;
@@ -440,7 +441,9 @@ p {
 
 .btnGroupSm {
   display: grid;
+  grid-template-columns: -webkit-min-content -webkit-min-content;
   grid-template-columns: min-content min-content;
+  -moz-column-gap: var(--padding);
   column-gap: var(--padding);
   margin-top: var(--padding);
 }
@@ -516,10 +519,10 @@ li {
     --content-padding: 2rem;
   }
 
-
   .btnGroup {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    -moz-column-gap: var(--padding);
     column-gap: var(--padding);
     justify-content: space-between;
     justify-items: center;
