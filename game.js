@@ -88,7 +88,7 @@ function dismiss(seatId) {
 
 function setMessage(msg, color = "green") {
   state.message = msg;
-  document.querySelector("#message").innerHTML = `Latest Message: ${msg}`;
+  document.querySelector("#message").innerHTML = `${msg}`;
   document.querySelector("#message").className = `message ${color}`;
 }
 
