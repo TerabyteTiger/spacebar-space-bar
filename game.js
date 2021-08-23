@@ -381,6 +381,7 @@ function seatCustomer() {
       <button onclick="dismiss('seat-${seat}')" class="dismissbtn btn">Dismiss</button>
       </div>
     </div>`;
+    setMessage("A New Customer has arrived", "green")
   }
 }
 
