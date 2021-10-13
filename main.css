@@ -48,6 +48,15 @@ body {
   color: white;
   background-color: var(--c-color);
 }
+#quick {
+  color: var(--twitter-color);
+  border-color: var(--twitter-border);
+}
+
+#quick:hover {
+  color: white;
+  background-color: var(--twitter-color);
+}
 
 #normal {
   color: var(--b-color);

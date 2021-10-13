@@ -10,9 +10,11 @@ function save() {
   let i = document.querySelector("#interestRate").value;
   let d = document.querySelector("#startingDebt").value;
   let m = document.querySelector("#startingMoney").value;
+  let a = document.querySelector("#minTime").value;
+  let b = document.querySelector("#maxTime").value;
   const f = "custom";
   customlink.className = "";
-  customlink.href = `./game.html?i=${i}&d=${d}&m=${m}&f=${f}`;
+  customlink.href = `./game.html?i=${i}&d=${d}&m=${m}&f=${f}&a=${a}&b=${b}`;
   document.querySelector("#changeSettings").className = "";
 }
 

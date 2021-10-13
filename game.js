@@ -26,6 +26,8 @@ let state = {
   message: "",
   customersToday: 0,
   customersScheduled: 2,
+  minDelay: 2,
+  maxDelay: 4
 };
 
 function buy(item, amount) {
@@ -190,7 +192,7 @@ function updateDay() {
 
 async function startCustomers() {
   let timerRandom =
-    Math.max(4, Math.min(1.5, Math.floor(Math.random() * 5))) * 1000;
+    Math.max(state.minDelay, Math.floor(Math.random() * state.maxDelay)) * 1000;
   await delay(timerRandom);
   seatCustomer();
   let totalInv =
@@ -436,6 +438,12 @@ function mounted() {
   }
   if (urlParams.has("f")) {
     state.difficulty = urlParams.get("f");
+  }
+  if (urlParams.has("a")){
+    state.minDelay = urlParams.get("a")
+  }
+  if (urlParams.has("b")){
+    state.maxDelay = urlParams.get("b")
   }
 }
 

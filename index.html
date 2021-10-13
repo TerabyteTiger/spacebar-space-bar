@@ -40,8 +40,9 @@
     </p>
     <nav class="mx-auto">
       <a href="./game.html?i=0&d=100&f=easy" id="easy">Easy game ($100 debt, 0% daily interest)</a>
-      <a href="./game.html?i=0&d=400&f=normal" id="normal">Normal game ($400 debt, 0% daily interest)</a>
-      <a href="./game.html?i=2&d=1000&f=hardcore" id="hardcore">Hardcore game ($1000 debt, 2% daily interest)</a>
+      
+      <a href="./game.html?i=0&d=400&f=normal&a=1&b=3" id="normal">Normal game ($400 debt, 0% daily interest)</a>
+      <a href="./game.html?i=2&d=1000&f=hardcore&a=1&b=2.5" id="hardcore">Hardcore game ($1000 debt, 2% daily interest)</a>
       <a href="./notes.html" id="notes">Patch notes</a>
       <div id="custom" class="hidden">
         <div class="flex-col">
@@ -60,8 +61,18 @@
             <input id="interestRate" name="interestRate" type="number" max="100" min="0" value="0"
               onclick="this.select()" step="1">%
           </div>
+          <div>
+            <label for="minTime">Minimum Time to new Customer: </label>
+            <input id="minTime" name="minTime" type="number" max="100" min="0" value="0"
+              onclick="this.select()" step=".25"> seconds
+          </div>
+          <div>
+            <label for="maxTime">Maximum Time to new Customer: </label>
+            <input id="maxTime" name="maxTime" type="number" max="100" min="0" value="0"
+              onclick="this.select()" step=".25"> seconds
+          </div>
 
-          <button id=" save" onclick="save()">Save settings</button>
+          <button id="save" onclick="save()">Save settings</button>
         </div>
       </div>
       <a href="" id="customStart" class="hidden">Play Custom</a>
