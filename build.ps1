@@ -11,7 +11,7 @@ terser game.js --compress --mangle --keep-fnames -o dist\game.js
 terser webmon.js --compress --mangle -o dist\webmon.js
 
 # Copy Favicon
-Copy-Item ./favicon.png ./dist/favicon.png
+Copy-Item ./favicon.ico ./dist/favicon.ico
 
 Write-Output "Compression complete"
 
