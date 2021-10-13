@@ -1,8 +1,9 @@
+if (document.monetization){
 document.monetization.addEventListener("monetizationstart", function () {
   // This is only accessible to those using web monetization
   document.querySelector("#custom").className = "";
 });
-
+}
 function save() {
   document.querySelector("#custom > div").className = "hidden";
   let customlink = document.querySelector("#customStart");
